@@ -75,7 +75,7 @@ export default function UserList() {
                 <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
                 <Td>
                   <Button
-                    as="a"
+                    as="div"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
@@ -100,7 +100,7 @@ export default function UserList() {
                 <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
                 <Td>
                   <Button
-                    as="a"
+                    as="div"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
@@ -125,7 +125,7 @@ export default function UserList() {
                 <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
                 <Td>
                   <Button
-                    as="a"
+                    as="div"
                     size="sm"
                     fontSize="sm"
                     colorScheme="purple"
