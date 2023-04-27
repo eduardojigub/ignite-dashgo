@@ -1,4 +1,5 @@
 import { Header } from '@/components/Header';
+import { useQuery } from 'react-query';
 import { Pagination } from '@/components/Pagination';
 import { Sidebar } from '@/components/Sidebar';
 import {
@@ -8,6 +9,7 @@ import {
   Flex,
   Heading,
   Icon,
+  Spinner,
   Table,
   Tbody,
   Td,
@@ -24,6 +26,13 @@ export default function UserList() {
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true,
+  });
+
+  const { data, isLoading, error } = useQuery('users', async () => {
+    const response = await fetch('http://localhost:3000/api/users');
+    const data = await response.json();
+
+    return data;
   });
 
   return (
@@ -47,96 +56,108 @@ export default function UserList() {
               </Button>
             </Link>
           </Flex>
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th px={['4', '4', '6']} color="gray.300" width="8">
-                  <Checkbox colorScheme="pink" />
-                </Th>
-                <Th>Usuário</Th>
-                {isWideVersion && <Th>Data de cadastro</Th>}
-                <Th width="8"></Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Eduardo Bruno</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      eduardobrunoit@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
-                <Td>
-                  <Button
-                    as="div"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
-                  >
-                    {isWideVersion ? 'Editar' : ''}
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Eduardo Bruno</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      eduardobrunoit@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
-                <Td>
-                  <Button
-                    as="div"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
-                  >
-                    {isWideVersion ? 'Editar' : ''}
-                  </Button>
-                </Td>
-              </Tr>
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink" />
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Eduardo Bruno</Text>
-                    <Text fontSize="sm" color="gray.300">
-                      eduardobrunoit@gmail.com
-                    </Text>
-                  </Box>
-                </Td>
-                <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
-                <Td>
-                  <Button
-                    as="div"
-                    size="sm"
-                    fontSize="sm"
-                    colorScheme="purple"
-                    leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
-                  >
-                    {isWideVersion ? 'Editar' : ''}
-                  </Button>
-                </Td>
-              </Tr>
-            </Tbody>
-          </Table>
-          <Pagination />
+          {isLoading ? (
+            <Flex justify="center">
+              <Spinner />
+            </Flex>
+          ) : error ? (
+            <Flex justify="center">
+              <Text>Falha ao obter dados dos usuários</Text>
+            </Flex>
+          ) : (
+            <>
+              <Table colorScheme="whiteAlpha">
+                <Thead>
+                  <Tr>
+                    <Th px={['4', '4', '6']} color="gray.300" width="8">
+                      <Checkbox colorScheme="pink" />
+                    </Th>
+                    <Th>Usuário</Th>
+                    {isWideVersion && <Th>Data de cadastro</Th>}
+                    <Th width="8"></Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td px={['4', '4', '6']}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Eduardo Bruno</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          eduardobrunoit@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
+                    <Td>
+                      <Button
+                        as="div"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
+                      >
+                        {isWideVersion ? 'Editar' : ''}
+                      </Button>
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td px={['4', '4', '6']}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Eduardo Bruno</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          eduardobrunoit@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
+                    <Td>
+                      <Button
+                        as="div"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
+                      >
+                        {isWideVersion ? 'Editar' : ''}
+                      </Button>
+                    </Td>
+                  </Tr>
+                  <Tr>
+                    <Td px={['4', '4', '6']}>
+                      <Checkbox colorScheme="pink" />
+                    </Td>
+                    <Td>
+                      <Box>
+                        <Text fontWeight="bold">Eduardo Bruno</Text>
+                        <Text fontSize="sm" color="gray.300">
+                          eduardobrunoit@gmail.com
+                        </Text>
+                      </Box>
+                    </Td>
+                    <Td>{isWideVersion && <Text>04 de Abril, 2021</Text>}</Td>
+                    <Td>
+                      <Button
+                        as="div"
+                        size="sm"
+                        fontSize="sm"
+                        colorScheme="purple"
+                        leftIcon={<Icon as={RiPencilLine} fontSize={16} />}
+                      >
+                        {isWideVersion ? 'Editar' : ''}
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+              <Pagination />
+            </>
+          )}
         </Box>
       </Flex>
     </Box>
