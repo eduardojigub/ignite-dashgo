@@ -3,7 +3,7 @@ import { api } from "../api";
 
 
 type User = {
-    id: number;
+    id: string;
     name: string;
     email: string;
     createdAt: string;
